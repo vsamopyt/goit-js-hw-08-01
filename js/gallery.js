@@ -66,41 +66,33 @@ const images = [
 
 const gallery = document.querySelector(".gallery");
 
-function createImg(original, preview, description) {
-  const li = document.createElement("li");
-  const link = document.createElement("a");
-  const img = document.createElement("img");
-  li.classList.add("gallery-item");
-  link.classList.add("gallery-link");
-  link.onclick = () => true;
-  link.style.cursor = "pointer";
-  img.classList.add("gallery-image");
-  img.width = "360";
-  img.height = "200";
-  img.src = preview;
-  img.alt = description;
-  img.dataset.source = original;
-  link.append(img);
-  li.append(link);
-  return li;
+function createGallery(images, gallery) {
+  const galleryItems = images.reduce((acc, { preview, original, description }) => {
+    // const { preview, original, description } = value;
+    acc += `<li class="gallery-item">
+      <a class="gallery-link" href=${original}>
+        <img class="gallery-image" 
+          src=${preview}
+          data-source=${original}
+          alt=${description}
+          width='360'
+          />
+      </a>
+    </li>`;
+    return acc;
+  }, "");
+  
+  gallery.innerHTML = galleryItems
 }
 
-function createGalery(images) {
-  const arrayImg = [];
-  gallery.textContent = "";
-  images.forEach((element) => {
-    const { original, preview, description } = element;
-    const li = createImg(original, preview, description);
-    arrayImg.push(li);
-  });
-  gallery.append(...arrayImg);
+function clickGallery (gallery) {
+  gallery.addEventListener ("click", function handleClick (event) {
+    console.log("event");
+    event.preventDefault()
+    console.log(event);
+  })
+
 }
 
-createGalery(images);
-
-gallery.addEventListener("click", function handleClick(event) {
-  if (event.target.classList.value === "gallery-image") {
-    // console.log(event.target.dataset.source);
-    basicLightbox.create(`<img  src=${event.target.dataset.source}>`).show();
-  }
-});
+createGallery(images, gallery);
+clickGallery (gallery)
