@@ -66,7 +66,6 @@ const images = [
 
 const gallery = document.querySelector(".gallery");
 
-
 function createGallery(images, gallery) {
   const galleryItems = images.reduce((acc, { preview, original, description }) => {
     acc += `<li class="gallery-item">
@@ -81,16 +80,20 @@ function createGallery(images, gallery) {
       </li>`;
       return acc;
     }, "");
-  gallery.innerHTML = galleryItems
+
+  gallery.innerHTML = galleryItems;
 }
 
 function clickGallery (gallery) {
   gallery.addEventListener ("click", function handleClick (event) {
-    event.preventDefault()
-    basicLightbox.create(`<img  src=${event.target.dataset.source}>`).show();
+    event.preventDefault();
+    if(event.target.classList.value === "gallery-image") {
+      basicLightbox.create(`<img  src=${event.target.dataset.source}>`).show();
+    } 
   })
 }
 
 
 createGallery(images, gallery);
-clickGallery (gallery)
+
+clickGallery (gallery);
