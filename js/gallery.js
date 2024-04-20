@@ -67,14 +67,16 @@ const images = [
 const gallery = document.querySelector(".gallery");
 
 function createGallery(images, gallery) {
+  gallery.innerHTML ="";
   const galleryItems = images.reduce((acc, { preview, original, description }) => {
     acc += `<li class="gallery-item">
-          <a class="gallery-link" href=${original}>
-            <img class="gallery-image" 
-              src=${preview}
-              data-source=${original}
-              alt=${description}
-              width='360'
+          <a class = "gallery-link" href=${original}>
+            <img class = "gallery-image" 
+              src = ${preview}
+              data-source = ${original}
+              alt = ${description}
+              width = '360'
+              height ="200"
             />
           </a>
       </li>`;
