@@ -66,33 +66,31 @@ const images = [
 
 const gallery = document.querySelector(".gallery");
 
+
 function createGallery(images, gallery) {
   const galleryItems = images.reduce((acc, { preview, original, description }) => {
-    // const { preview, original, description } = value;
     acc += `<li class="gallery-item">
-      <a class="gallery-link" href=${original}>
-        <img class="gallery-image" 
-          src=${preview}
-          data-source=${original}
-          alt=${description}
-          width='360'
-          />
-      </a>
-    </li>`;
-    return acc;
-  }, "");
-  
+          <a class="gallery-link" href=${original}>
+            <img class="gallery-image" 
+              src=${preview}
+              data-source=${original}
+              alt=${description}
+              width='360'
+            />
+          </a>
+      </li>`;
+      return acc;
+    }, "");
   gallery.innerHTML = galleryItems
 }
 
 function clickGallery (gallery) {
   gallery.addEventListener ("click", function handleClick (event) {
-    console.log("event");
     event.preventDefault()
-    console.log(event);
+    basicLightbox.create(`<img  src=${event.target.dataset.source}>`).show();
   })
-
 }
+
 
 createGallery(images, gallery);
 clickGallery (gallery)
